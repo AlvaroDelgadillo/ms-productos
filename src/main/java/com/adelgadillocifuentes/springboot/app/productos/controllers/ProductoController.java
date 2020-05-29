@@ -16,8 +16,8 @@ import com.adelgadillocifuentes.springboot.app.productos.models.service.IProduct
 @RestController
 public class ProductoController {
 	
-	@Autowired
-	private Environment env;
+	//@Autowired
+	//private Environment env;
 	
 	@Value("${server.port}")
 	private Integer port;
@@ -35,10 +35,18 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/listar/{id}")
-	public Producto detalle(@PathVariable Long id) throws Exception {
+	public Producto detalle(@PathVariable Long id){
 		Producto producto = productoService.findById(id);
 		//producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
 		producto.setPort(port);		
+		
+		try {
+			Thread.sleep(2000L);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return producto;
 		
 	}
